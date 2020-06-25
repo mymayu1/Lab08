@@ -1,0 +1,84 @@
+package L8;
+
+//public class chess {
+
+//}
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Color;
+
+public class chess
+{
+    private int xPositions;
+    private int yPositions;
+    private int squareSize;
+
+    private Color tileColor;
+
+    public chess()
+    {
+        xPositions = 0;
+        yPositions = 0;
+        squareSize = 50;
+
+        tileColor = Color.WHITE;
+    }
+
+    public void draw(Graphics2D g2)
+    {
+        for(int i = 1; i <= 64; i++)
+        {
+            Rectangle tile = new Rectangle(xPositions, yPositions, squareSize, squareSize);
+
+            g2.setColor(tileColor);
+            g2.fill(tile);
+
+            updateTileColor(i);
+            updatePositions(i);
+        }
+    }
+
+    private void updatePositions(int tileNumber)
+    {
+        if((tileNumber % 8) == 0)
+        {
+            xPositions = 0;
+            yPositions = yPositions + squareSize;
+        }
+        else
+        {
+            xPositions = xPositions + squareSize;
+        }
+    }
+
+    private void updateTileColor(int tileNumber)
+    {
+        if((tileNumber % 8) != 0)
+        {
+            tileColor = (tileColor == Color.WHITE) ? Color.BLACK : Color.WHITE;
+        }
+    }
+    private static boolean QueenAttack(int qR, int qC, 
+            int oR, int oC)
+    {
+    	if(qR ==oR)
+    		return true;
+    	if(qC == oC)
+    		return true;
+    	if(Math.abs(qR - oR) ==Math.abs(qC - oC))
+    		return true;
+    	return false;
+    }
+    public static void main(String[] args)
+    {
+    	int qR = 1, qC = 1; 
+        int oR = 3, oC = 2; 
+        if (QueenAttack(qR, qC, oR, oC)) 
+            System.out.println("Yes"); 
+        else
+            System.out.println("No"); 
+    }
+    }
+    
+        
+    }
